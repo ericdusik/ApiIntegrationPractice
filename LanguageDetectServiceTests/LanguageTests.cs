@@ -22,12 +22,15 @@ namespace LanguageDetectServiceTests
         [TestCase("el", @"Μου αρέσει να τρώω πίτα")]
         public void englishLangTest(string expected, string text)
         {
+            
+            //ARRANGE
             var client = new RestClient("http://ws.detectlanguage.com");
             var request = new RestRequest("/0.2/detect", Method.POST);
 
             request.AddParameter("key", "demo"); // replace "demo" with your API key
             request.AddParameter("q", text);
 
+            //ACT
             IRestResponse response = client.Execute(request);
 
             RestSharp.Deserializers.JsonDeserializer deserializer = new RestSharp.Deserializers.JsonDeserializer();
@@ -39,7 +42,8 @@ namespace LanguageDetectServiceTests
             Console.WriteLine("Language: {0}", detection.language);
             Console.WriteLine("Reliable: {0}", detection.isReliable);
             Console.WriteLine("Confidence: {0}", detection.confidence);
-
+            
+            //ASSERT
             Assert.AreEqual(expected, detection.language, "we expected the language to be en but instead it was {0}", detection.language);
         }
     }
