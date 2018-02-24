@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 using NUnit.Framework;
 using LanguageDetectServiceTests.DTO;
 
@@ -42,8 +43,9 @@ namespace LanguageDetectServiceTests
             Console.WriteLine("Language: {0}", detection.language);
             Console.WriteLine("Reliable: {0}", detection.isReliable);
             Console.WriteLine("Confidence: {0}", detection.confidence);
-            
+
             //ASSERT
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.AreEqual(expected, detection.language, "we expected the language to be en but instead it was {0}", detection.language);
         }
     }
