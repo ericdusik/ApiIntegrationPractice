@@ -14,14 +14,14 @@ namespace LanguageDetectServiceTests.DTO
         public float confidence { get; set; }
     }
 
-    public class ResultData
+    public class LangIDResult
     {
-        public List<Detection> detections { get; set; }
+        public LangIDResultData data { get; set; }
     }
 
-    public class Result
+    public class LangIDResultData
     {
-        public ResultData data { get; set; }
+        public List<Detection> detections { get; set; }
     }
 
 }
