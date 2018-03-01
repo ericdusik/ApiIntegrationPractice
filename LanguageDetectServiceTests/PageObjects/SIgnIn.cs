@@ -37,11 +37,13 @@ namespace LanguageDetectServiceTests.PageObjects
 		//Home Page Element Interaction Methods
 		public void EnterEmail(string email)
 		{
+			emailInput.Clear();
 			emailInput.SendKeys(email);
 		}
 
 		public void EnterPassword(string password)
 		{
+			passwordInput.Clear();
 			passwordInput.SendKeys(password);
 		}
 
