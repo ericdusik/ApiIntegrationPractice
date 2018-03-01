@@ -10,7 +10,7 @@ using LanguageDetectServiceTests.DTO;
 using LanguageDetectServiceTests.Helpers;
 using LanguageDetectServiceTests.Fixtures;
 
-namespace LanguageDetectServiceTests
+namespace LanguageDetectServiceTests.Tests.APITests
 {
     
     class LanguageIDGoldFlow : TestFixture

@@ -10,7 +10,7 @@ using LanguageDetectServiceTests.DTO;
 using LanguageDetectServiceTests.Helpers;
 using LanguageDetectServiceTests.Fixtures;
 
-namespace LanguageDetectServiceTests
+namespace LanguageDetectServiceTests.Tests.APITests
 {
 
     class Errors : TestFixture
@@ -23,28 +23,20 @@ namespace LanguageDetectServiceTests
         [TestCase(1, "Invalid API key")]
         public void invalidAPIKey(int code, string message)
         {
-
             //ARRANGE
             Dictionary<string, string> RESTQueryParameters = new Dictionary<string, string>();
             RESTQueryParameters.Add("key", "not-a-real-key");
 
 
-
             //ACT
             IRestResponse response = RESTHelper.Query(client, langRequest, RESTQueryParameters);
-
             RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
             ErrorResponse result = deserial.Deserialize<ErrorResponse>(response);
-
             Error error = result.error;
 
 
-
-
-
-
-        //ASSERT
-        Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+			//ASSERT
+			Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
             Assert.AreEqual(code, error.code, "we expected the code to be 1 but instead it was {0}", error.code);
         }
      }

@@ -23,7 +23,8 @@ namespace LanguageDetectServiceTests.Fixtures
         public void ReportOnAPIUsage()
         {
 
-            Dictionary<string, string> usageQueryParameters = new Dictionary<string, string>();
+
+			Dictionary<string, string> usageQueryParameters = new Dictionary<string, string>();
             usageQueryParameters.Add("key", langAPIKey);
 
             //ACT
