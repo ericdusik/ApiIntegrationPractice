@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Web.Configuration;
 using LanguageDetectServiceTests.DTO;
 
 namespace LanguageDetectServiceTests.Helpers
@@ -17,7 +18,7 @@ namespace LanguageDetectServiceTests.Helpers
 
             int reportEpoch = Utility.getEpoch();
 
-            var path = Path.Combine("C:\\API_TEST_LOGS",
+            var path = Path.Combine(WebConfigurationManager.AppSettings["reportLocation"],
                 DateTime.Now.Date.ToString("yyyy_MM_dd"),
                 string.Format("Language API Test Report_{0}.txt", reportEpoch));
 
@@ -51,7 +52,7 @@ namespace LanguageDetectServiceTests.Helpers
                     sw.Write("API Usage Report for {0}.\r\n\n", usage.date);
                     sw.Write("Plan Type: {0}, Plan Status: {1}\r\n\n", usage.plan, usage.status);
                     sw.Write("We have used {0} of our {1} daily requests.\r\n\n", usage.requests, usage.dailyRequestsLimit);
-                    sw.Write("{0} bytes have been used of our available {1} daily bytes.\r\n\n", usage.bytes);
+                    sw.Write("{0} bytes have been used of our available {1} daily bytes.\r\n\n", usage.bytes, usage.dailyBytesLimit);
                 }
             }
 
