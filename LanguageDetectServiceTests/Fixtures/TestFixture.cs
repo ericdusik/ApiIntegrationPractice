@@ -6,6 +6,7 @@ using LanguageDetectServiceTests.Helpers;
 using LanguageDetectServiceTests.DTO;
 using System.Diagnostics;
 using System.IO;
+using System.Web.Configuration;
 
 namespace LanguageDetectServiceTests.Fixtures
 {
@@ -13,7 +14,7 @@ namespace LanguageDetectServiceTests.Fixtures
     {
         public readonly string client = "http://ws.detectlanguage.com";
         public readonly string langRequest = "/0.2/detect";
-        public readonly string langAPIKey = "7d233f2be2a65da1e3b033ac2549658e";
+        public readonly string langAPIKey = WebConfigurationManager.AppSettings["apiKey"];
 
         private readonly string langAPIUsageRequest = "/0.2/user/status";
 

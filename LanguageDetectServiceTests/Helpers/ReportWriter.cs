@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using System.Web.Configuration;
 using LanguageDetectServiceTests.DTO;
 
 namespace LanguageDetectServiceTests.Helpers
@@ -18,7 +19,7 @@ namespace LanguageDetectServiceTests.Helpers
             //Create our File path
             int reportEpoch = Utility.getEpoch();
 
-            var path = Path.Combine("C:\\API_TEST_LOGS",
+            var path = Path.Combine(WebConfigurationManager.AppSettings["reportLocation"],
                 DateTime.Now.Date.ToString("yyyy_MM_dd"),
                 string.Format("Language API Test Report_{0}.txt", reportEpoch));
 
