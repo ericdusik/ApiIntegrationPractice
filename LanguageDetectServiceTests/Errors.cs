@@ -9,12 +9,29 @@ using NUnit.Framework;
 using LanguageDetectServiceTests.DTO;
 using LanguageDetectServiceTests.Helpers;
 using LanguageDetectServiceTests.Fixtures;
+using NUnit.Framework.Interfaces;
 
 namespace LanguageDetectServiceTests
 {
 
     class Errors : TestFixture
     {
+
+        [TearDown]
+        public void logFailures()
+        {
+            testClassForReport = TestContext.CurrentContext.Test.ClassName.ToString();
+
+            if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
+            {
+                Utility.logError(TestContext.CurrentContext, failedTestCases);
+            }
+            else if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Passed)
+            {
+                passedTestCases = passedTestCases + 1;
+            }
+        }
+
 
         [Category("Feature.Authentication")]
         [Category("TestType.Error")]
@@ -45,7 +62,7 @@ namespace LanguageDetectServiceTests
 
         //ASSERT
         Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
-            Assert.AreEqual(code, error.code, "we expected the code to be 1 but instead it was {0}", error.code);
+            Assert.AreEqual(1, error.code, "we expected the code to be 1 but instead it was {0}", error.code);
         }
      }
 }

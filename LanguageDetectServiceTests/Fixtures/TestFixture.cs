@@ -16,7 +16,13 @@ namespace LanguageDetectServiceTests.Fixtures
         public readonly string langAPIKey = "7d233f2be2a65da1e3b033ac2549658e";
 
         private readonly string langAPIUsageRequest = "/0.2/user/status";
-        
+
+        public static Dictionary<string, string> failedTestCases = new Dictionary<string, string>();
+        public static int passedTestCases = 0;
+        public static string testClassForReport = null;
+
+
+
 
         [OneTimeTearDown]
         public void ReportOnAPIUsage()
@@ -32,7 +38,7 @@ namespace LanguageDetectServiceTests.Fixtures
             Usage usage = deserial.Deserialize<Usage>(response);
 
             //Write our test report
-            ReportWriter.writeReport(usage);
+            ReportWriter.writeReport(usage, failedTestCases, passedTestCases, testClassForReport);
 
 
            
