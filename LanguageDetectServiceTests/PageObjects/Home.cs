@@ -10,6 +10,7 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace LanguageDetectServiceTests.PageObjects
 {
+
 	class Home
 	{
 
@@ -21,6 +22,7 @@ namespace LanguageDetectServiceTests.PageObjects
 			PageFactory.InitElements(_driver, this);
 		}
 
+
 		//Home Page Element Locators
 		[FindsBy(How = How.LinkText, Using = "Sign In")]
 		private IWebElement signInButton { get; set; }
@@ -30,7 +32,6 @@ namespace LanguageDetectServiceTests.PageObjects
 
         [FindsBy(How = How.ClassName, Using = "alert-error")]
         private IWebElement alertError { get; set; }
-
 
 
 		//Home Page Element Interaction Methods

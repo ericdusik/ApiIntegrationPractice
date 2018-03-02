@@ -75,6 +75,7 @@ namespace LanguageDetectServiceTests.Tests.UITests
 			_signIn.ClickSignIn();
 			Thread.Sleep(5000);
 
+
 			//ASSERT
 			Assert.AreEqual("Signed in successfully.", _dashboard.alertHeader());
 			Assert.IsTrue(_dashboard.pageContentArea().Contains(_apiKey));
@@ -105,7 +106,7 @@ namespace LanguageDetectServiceTests.Tests.UITests
         [Category("TestType.UI")]
         [Test, Description("Verify that a user is provided the correct error message after timing out."), Order(3)]
 
-        public void ForceLogOUt()
+        public void ForceLogOut()
         {
             //ARRANGE
             //Instanciate Page Objects
@@ -117,7 +118,7 @@ namespace LanguageDetectServiceTests.Tests.UITests
             _signIn.FillOutLoginForm(_userID, _password, false);
 
             //ACT
-            //Delete all cookies to simulate a user time out
+            //Delete all cookies (including session) to simulate a user time out (expiration) then refresh the page
             _driver.Manage().Cookies.DeleteAllCookies();
             _driver.Navigate().Refresh();
 
