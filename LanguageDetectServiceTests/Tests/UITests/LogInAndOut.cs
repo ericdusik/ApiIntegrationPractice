@@ -15,11 +15,8 @@ namespace LanguageDetectServiceTests.Tests.UITests
 {
 
 	//TO DO:
-	//1. Write a better wait method
-	//2. Tagging
-	//3. Do more front end work
 	//4. Make a PoM class for the menu.
-	//5. Move utilities out of SeleniumHelper to Utility.
+
 
 
 	class LogInAndOut
@@ -30,13 +27,18 @@ namespace LanguageDetectServiceTests.Tests.UITests
 		private SignIn _signIn;
 		private Dashboard _dashboard;
 
+        string _userID =    WebConfigurationManager.AppSettings["userID"];
+        string _password = WebConfigurationManager.AppSettings["userPassword"];
+        string _apiKey = WebConfigurationManager.AppSettings["apiKey"];
+        string _siteURL = WebConfigurationManager.AppSettings["siteURL"];
 
-		[OneTimeSetUp]
+        [OneTimeSetUp]
 		public void oneTimeSetup()
 		{
 			//Instanciate our WebDriver
 			_driver = SeleniumHelper.CreateChromeWebDriver();
-		}
+
+        }
 
 		[OneTimeTearDown]
 		public void oneTimeTearDown()
@@ -51,7 +53,9 @@ namespace LanguageDetectServiceTests.Tests.UITests
 		}
 
 
-		[Test]
+        [Category("Feature.UserLogin")]
+        [Category("TestType.UI")]
+        [Test, Description("Verify that a user can log in successfully via the front end."), Order(1)]
 		public void LogInToSite()
 		{
 			//ARRANGE
@@ -61,25 +65,27 @@ namespace LanguageDetectServiceTests.Tests.UITests
 			Dashboard _dashboard = new Dashboard(_driver);
 
 
-			SeleniumHelper.goToURL(_driver, WebConfigurationManager.AppSettings["aut"]);
+			SeleniumHelper.goToURL(_driver, _siteURL);
 			_home.ClickSignIn();
-			Thread.Sleep(5000);
 
 			//ACT
-			_signIn.EnterEmail(WebConfigurationManager.AppSettings["userID"]);
-			_signIn.EnterPassword(WebConfigurationManager.AppSettings["userPassword"]);
+			_signIn.EnterEmail(_userID);
+			_signIn.EnterPassword(_password);
 			_signIn.checkRememberMe();
 			_signIn.ClickSignIn();
 			Thread.Sleep(5000);
 
 			//ASSERT
 			Assert.AreEqual("Signed in successfully.", _dashboard.alertHeader());
-			Assert.IsTrue(_dashboard.pageContentArea().Contains(WebConfigurationManager.AppSettings["apiKey"]));
-			Assert.IsTrue(_dashboard.userDropDownText().Contains(WebConfigurationManager.AppSettings["userID"]));
+			Assert.IsTrue(_dashboard.pageContentArea().Contains(_apiKey));
+			Assert.IsTrue(_dashboard.userDropDownText().Contains(_userID));
 
 		}
 
-		[Test]
+        [Category("Feature.UserLogout")]
+        [Category("TestType.UI")]
+        [Test, Description("Verify that a user can log out successfully via the front end."), Order(2)]
+
 		public void LogOutOfSite()
 		{
 			//ARRANGE
@@ -89,11 +95,38 @@ namespace LanguageDetectServiceTests.Tests.UITests
 
 			//ACT
 			_dashboard.signOut();
-			Thread.Sleep(5000);
 
 			//ASSERT
 			Assert.AreEqual("Signed out successfully.", _home.alertHeader());
 		}
 
-	}
+
+        [Category("Feature.UserLogout")]
+        [Category("TestType.UI")]
+        [Test, Description("Verify that a user is provided the correct error message after timing out."), Order(3)]
+
+        public void ForceLogOUt()
+        {
+            //ARRANGE
+            //Instanciate Page Objects
+            Home _home = new Home(_driver);
+            SignIn _signIn = new SignIn(_driver);
+
+            SeleniumHelper.goToURL(_driver, _siteURL);
+            _home.ClickSignIn();
+            _signIn.FillOutLoginForm(_userID, _password, false);
+
+            //ACT
+            //Delete all cookies to simulate a user time out
+            _driver.Manage().Cookies.DeleteAllCookies();
+            _driver.Navigate().Refresh();
+
+            //ASSERT
+            Assert.AreEqual("You need to sign in or sign up before continuing.", _home.errorHeader());
+
+
+            
+        }
+
+    }
 }

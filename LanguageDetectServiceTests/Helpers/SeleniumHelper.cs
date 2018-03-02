@@ -22,17 +22,22 @@ namespace LanguageDetectServiceTests.Helpers
 		public static IWebDriver CreateChromeWebDriver()
 		{
 			var options = new ChromeOptions();
-			options.AddArgument("ignore-certificate-errors");
-			options.AddArgument("no-sandbox");
-			options.AddArgument("--start-maximized");
+
+            //Full size the browser so everything is in the viewport
+			options.AddArgument("start-maximized");
 
 			//Disable the "Chrome is being controlled by automated test software" bar
 			options.AddArgument("disable-infobars");
+
 			//Disable the "would you like to save your password for this site" flyout
 			options.AddUserProfilePreference("credentials_enable_service", false);
 
-			IWebDriver driver = new ChromeDriver();
-			return driver;
+			IWebDriver driver = new ChromeDriver(options);
+
+            //Set the implicit wait for our driver
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+            return driver;
 
 		}
 

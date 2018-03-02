@@ -28,6 +28,9 @@ namespace LanguageDetectServiceTests.PageObjects
 		[FindsBy(How = How.ClassName, Using = "alert-info")]
 		private IWebElement alertArea { get; set; }
 
+        [FindsBy(How = How.ClassName, Using = "alert-error")]
+        private IWebElement alertError { get; set; }
+
 
 
 		//Home Page Element Interaction Methods
@@ -40,6 +43,11 @@ namespace LanguageDetectServiceTests.PageObjects
 		{
 			return alertArea.Text;
 		}
+
+        public string errorHeader()
+        {
+            return alertError.Text;
+        }
 
 
 	}

@@ -56,5 +56,16 @@ namespace LanguageDetectServiceTests.PageObjects
 		{
 			signInButton.Click();
 		}
+
+        public void FillOutLoginForm(string email, string password, bool checkbox)
+        {
+            EnterEmail(email);
+            EnterPassword(password);
+            if (checkbox == true)
+            {
+                checkRememberMe();
+            }
+            ClickSignIn();
+        }
 	}
 }

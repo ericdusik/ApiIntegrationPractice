@@ -38,9 +38,11 @@ namespace LanguageDetectServiceTests.Fixtures
             RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
             Usage usage = deserial.Deserialize<Usage>(response);
 
-            //Write our test report
-            ReportWriter.writeReport(usage, failedTestCases, passedTestCases, testClassForReport);
-
+            //If reporting is turned on, write a test report
+            if (bool.Parse(WebConfigurationManager.AppSettings["runReports"]) == true)
+            {
+                ReportWriter.writeReport(usage, failedTestCases, passedTestCases, testClassForReport);
+            }
 
 
 
