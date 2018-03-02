@@ -52,19 +52,12 @@ namespace LanguageDetectServiceTests.Tests.APITests
             Error error = result.error;
 
 
-<<<<<<< HEAD:LanguageDetectServiceTests/Errors.cs
 
-
-
-
-        //ASSERT
-        Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
+            //ASSERT
+            Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
             Assert.AreEqual(1, error.code, "we expected the code to be 1 but instead it was {0}", error.code);
-=======
-			//ASSERT
-			Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
-            Assert.AreEqual(code, error.code, "we expected the code to be 1 but instead it was {0}", error.code);
->>>>>>> PoM:LanguageDetectServiceTests/Tests/APITests/Errors.cs
+
+			
         }
      }
 }
