@@ -11,7 +11,7 @@ using LanguageDetectServiceTests.Helpers;
 using LanguageDetectServiceTests.Fixtures;
 using NUnit.Framework.Interfaces;
 
-namespace LanguageDetectServiceTests
+namespace LanguageDetectServiceTests.Tests.APITests
 {
     
     class LanguageIDGoldFlow : TestFixture
