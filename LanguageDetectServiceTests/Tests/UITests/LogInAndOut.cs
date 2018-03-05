@@ -27,10 +27,10 @@ namespace LanguageDetectServiceTests.Tests.UITests
 		private SignIn _signIn;
 		private Dashboard _dashboard;
 
-        string _userID =    WebConfigurationManager.AppSettings["userID"];
-        string _password = WebConfigurationManager.AppSettings["userPassword"];
-        string _apiKey = WebConfigurationManager.AppSettings["apiKey"];
-        string _siteURL = WebConfigurationManager.AppSettings["siteURL"];
+        string _userID =  Constants.USERID;
+        string _password = Constants.USERPASSWORD;
+        string _apiKey = Constants.APIKEY;
+        string _siteURL = Constants.SITEURL;
 
         [OneTimeSetUp]
 		public void oneTimeSetup()

@@ -14,8 +14,6 @@ namespace LanguageDetectServiceTests.Fixtures
     {
         public readonly string client = "http://ws.detectlanguage.com";
         public readonly string langRequest = "/0.2/detect";
-        public readonly string langAPIKey = WebConfigurationManager.AppSettings["apiKey"];
-
         private readonly string langAPIUsageRequest = "/0.2/user/status";
 
         public static Dictionary<string, string> failedTestCases = new Dictionary<string, string>();
@@ -30,7 +28,7 @@ namespace LanguageDetectServiceTests.Fixtures
         {
 
             Dictionary<string, string> usageQueryParameters = new Dictionary<string, string>();
-            usageQueryParameters.Add("key", langAPIKey);
+            usageQueryParameters.Add("key", Constants.APIKEY);
 
             //ACT
             IRestResponse response = RESTHelper.Query(client, langAPIUsageRequest, usageQueryParameters);
@@ -39,7 +37,7 @@ namespace LanguageDetectServiceTests.Fixtures
             Usage usage = deserial.Deserialize<Usage>(response);
 
             //If reporting is turned on, write a test report
-            if (bool.Parse(WebConfigurationManager.AppSettings["runReports"]) == true)
+            if (bool.Parse(Constants.RUNREPORTS) == true)
             {
                 ReportWriter.writeReport(usage, failedTestCases, passedTestCases, testClassForReport);
             }

@@ -45,7 +45,7 @@ namespace LanguageDetectServiceTests.Tests.APITests
 
             //ARRANGE
             Dictionary<string, string> RESTQueryParameters = new Dictionary<string, string>();
-            RESTQueryParameters.Add("key", langAPIKey);
+            RESTQueryParameters.Add("key", Constants.APIKEY);
             RESTQueryParameters.Add("q", text);
 
 
@@ -89,7 +89,7 @@ namespace LanguageDetectServiceTests.Tests.APITests
 
             //ARRANGE
             Dictionary<string, string> RESTQueryParameters = new Dictionary<string, string>();
-            RESTQueryParameters.Add("key", langAPIKey);
+            RESTQueryParameters.Add("key", Constants.APIKEY);
             RESTQueryParameters.Add("q", text);
 
 
